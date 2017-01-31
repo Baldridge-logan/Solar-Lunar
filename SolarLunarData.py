@@ -54,11 +54,14 @@ class CelestialData:
 			if "</pre>" in line: #end of data
 				record = False
 			if record:
-				parse = parse_line(line)
+				parse = line #parse_parse
 				if parse:
-					data["time_stamps"].append(parse[0])
-					data["altitude"].append(parse[1])
-					data["azimuth"].append(parse[2])
+					ts = parse[0:5]
+					data["time_stamps"].append(ts.replace(" ",""))
+					al = parse[10:16]
+					data["altitude"].append(al.replace(" ",""))
+					az = parse[22:28]
+					data["azimuth"].append(az.replace(" ",""))
 			if "h  m         o           o" in line: #start of data
 				record = True
 		content.close()
