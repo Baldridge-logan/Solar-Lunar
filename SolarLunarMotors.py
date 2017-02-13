@@ -35,7 +35,13 @@ class MotorController:
 		Degrees argument corresponds to angle on physical arc
 		Time per Tick is in milliseconds
 		"""
-		arc_proportion = degrees / float(TOTAL_DEGREES)
+                if (degrees<0):#If change in degrees < 0, set direction to backwards
+                        self.set_direction('DOWN')
+                else:
+                        self.set_direction('UP')
+                
+                        		
+		arc_proportion = abs(degrees) / float(TOTAL_DEGREES)
 		delta_steps = (arc_proportion * MOTOR_STEPS) * self.motor_ratio
 
 		self.partial_steps += (delta_steps % 1) #get overflow of delta
